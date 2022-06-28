@@ -20,10 +20,10 @@ public class AccountCRUDService {
     @Autowired
     AccountRepository accountRepository;
 
-    @RequestMapping(value = "/account/create/{accountNumber}/{pin}/{openingBal}/{overDraft}", method = RequestMethod.GET)
-    public String createAccount(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long openingBal, @PathVariable Long overDraft) {
+    @RequestMapping(value = "/account/create/{accountNumber}/{pin}/{openingBal}/{overDraft}/{availableBal}", method = RequestMethod.GET)
+    public String createAccount(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long openingBal, @PathVariable Long overDraft, @PathVariable Long availableBal) {
 
-        Account account = new Account(accountNumber,pin,openingBal,overDraft);
+        Account account = new Account(accountNumber,pin,openingBal,overDraft,availableBal);
         account = accountRepository.save(account);
         logger.info("Account :: "+ account +" has been created successfully.");
         return "Account:: "+accountNumber +" has been created successfully.";
@@ -32,7 +32,6 @@ public class AccountCRUDService {
     @RequestMapping(value = "/account/delete/{accountNumber}", method = RequestMethod.GET)
     public String deleteAccount(@PathVariable Long accountNumber) {
         Optional<Account> byId = accountRepository.findById(accountNumber);
-
         if(byId.isPresent()) {
             accountRepository.deleteById(accountNumber);
             logger.info("Account :: " + accountNumber + " has been deleted successfully.");
