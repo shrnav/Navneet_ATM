@@ -18,6 +18,7 @@ import java.util.Optional;
 public class AccountCRUDService {
 
     Logger logger = LoggerFactory.getLogger(AccountCRUDService.class);
+    private int count;
 
     @Autowired
     AccountRepository accountRepository;
@@ -44,12 +45,27 @@ public class AccountCRUDService {
         }
     }
 
-    @RequestMapping(value = "/account/getBal/{accountNumber}")
-    public String getAccountBalance(@PathVariable Long accountNumber) throws AccountException {
+    @RequestMapping(value = "/account/getBal/{accountNumber}/{pin}")
+     public String getAccountBalance(@PathVariable Long accountNumber,@PathVariable int pin) throws AccountException {
         Optional<Account> acctBal = accountRepository.findById(accountNumber);
         if(acctBal.isPresent()) {
-            logger.info("Your "+ accountNumber +" available balance is "+acctBal);
-            return "Your "+ accountNumber +" available balance is "+acctBal;
+            Account account = acctBal.get();
+            System.out.println(account);
+            //TODO Add the pin check
+            count++;
+            if (account.getPin() != pin){
+                if(count < 4) {
+                    logger.info("You have entered wrong pin." + (4 - count) + " more attempts are remaining for the day");
+                    return "You have entered wrong pin." + (4 - count) + " more attempts are remaining for the day";
+            } else
+                {
+
+                throw new AccountException("You have entered invalid PIN three time. Your account has been blocked for the day!!!");
+            }
+        }
+
+            logger.info("Your "+ accountNumber +" available balance is "+account.getAvailableBal());
+            return "Your "+ accountNumber +" available balance is "+account.getAvailableBal();
         }
         else
         {
