@@ -1,6 +1,8 @@
 package com.navneet.atm.atmapi;
 
 import com.navneet.atm.atmapi.entity.Account;
+import com.navneet.atm.atmapi.exception.ATMException;
+import com.navneet.atm.atmapi.exception.AccountException;
 import com.navneet.atm.atmapi.repository.AccountRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +32,7 @@ public class AccountCRUDService {
     }
 
     @RequestMapping(value = "/account/delete/{accountNumber}", method = RequestMethod.GET)
-    public String deleteAccount(@PathVariable Long accountNumber) {
+    public String deleteAccount(@PathVariable Long accountNumber) throws AccountException {
         Optional<Account> byId = accountRepository.findById(accountNumber);
         if(byId.isPresent()) {
             accountRepository.deleteById(accountNumber);
@@ -38,7 +40,20 @@ public class AccountCRUDService {
             return "Account:: " + accountNumber + " has been deleted successfully.";
         }
         else {
-            return "This Account:: "+accountNumber+" does not exist.";
+            throw new AccountException("This Account:: "+accountNumber+" does not exist.");
+        }
+    }
+
+    @RequestMapping(value = "/account/getBal/{accountNumber}")
+    public String getAccountBalance(@PathVariable Long accountNumber) throws AccountException {
+        Optional<Account> acctBal = accountRepository.findById(accountNumber);
+        if(acctBal.isPresent()) {
+            logger.info("Your "+ accountNumber +" available balance is "+acctBal);
+            return "Your "+ accountNumber +" available balance is "+acctBal;
+        }
+        else
+        {
+            throw new AccountException("This Account:: "+accountNumber+" does not exist.");
         }
     }
 }
