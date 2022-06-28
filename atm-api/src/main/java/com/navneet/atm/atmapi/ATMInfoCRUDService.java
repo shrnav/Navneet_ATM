@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 public class ATMInfoCRUDService {
     Logger logger = LoggerFactory.getLogger(ATMInfoCRUDService.class);
 
+    //However we will usually add one row in ATMInfo table, but in future we can add more rows on te basis of date.
+
     @Autowired
     ATMInfoRepository atmInfoRepository;
     @RequestMapping(value = "/atm/create/{initAmt}/{fifties}/{twenties}/{tens}/{fives}/{remainAmt}", method = RequestMethod.GET)
@@ -20,5 +22,14 @@ public class ATMInfoCRUDService {
         logger.info("ATM has been uploaded with "+initAmt+" amount.");
         return "ATM has been uploaded with "+initAmt+" amount.";
     }
+    @RequestMapping(value = "/atm/get")
+    public ATMInfo getATMInfo(){
+        Iterable<ATMInfo> atmInfos = atmInfoRepository.findAll();
+        for(ATMInfo info : atmInfos){
+            return info;
+        }
+        return null;
+    }
+    //TODO Needs to add other CRUD operation.
 
 }
