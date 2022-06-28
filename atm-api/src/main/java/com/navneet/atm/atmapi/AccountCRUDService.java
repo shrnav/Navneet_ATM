@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class AccountCRUDService {
 
@@ -19,11 +21,25 @@ public class AccountCRUDService {
     AccountRepository accountRepository;
 
     @RequestMapping(value = "/account/create/{accountNumber}/{pin}/{openingBal}/{overDraft}", method = RequestMethod.GET)
-    public String insertIntoAccount(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long openingBal, @PathVariable Long overDraft) {
+    public String createAccount(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long openingBal, @PathVariable Long overDraft) {
 
         Account account = new Account(accountNumber,pin,openingBal,overDraft);
         account = accountRepository.save(account);
         logger.info("Account :: "+ account +" has been created successfully.");
         return "Account:: "+accountNumber +" has been created successfully.";
+    }
+
+    @RequestMapping(value = "/account/delete/{accountNumber}", method = RequestMethod.GET)
+    public String deleteAccount(@PathVariable Long accountNumber) {
+        Optional<Account> byId = accountRepository.findById(accountNumber);
+
+        if(byId.isPresent()) {
+            accountRepository.deleteById(accountNumber);
+            logger.info("Account :: " + accountNumber + " has been deleted successfully.");
+            return "Account:: " + accountNumber + " has been deleted successfully.";
+        }
+        else {
+            return "This Account:: "+accountNumber+" does not exist.";
+        }
     }
 }

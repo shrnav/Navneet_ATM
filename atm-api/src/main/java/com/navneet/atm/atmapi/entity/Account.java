@@ -1,9 +1,6 @@
 package com.navneet.atm.atmapi.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,8 +8,7 @@ import javax.persistence.*;
 @Getter @Setter @ToString
 @NoArgsConstructor
 public class Account {
-    private @Id @GeneratedValue int id;
-    private Long acctNumber;
+        private @Id Long acctNumber;
     private int pin;
     private Long openingBal;
     private Long overDraft;
