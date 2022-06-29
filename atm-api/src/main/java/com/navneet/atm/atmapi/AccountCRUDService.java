@@ -18,15 +18,15 @@ import java.util.Optional;
 @RestController
 @Slf4j
 public class AccountCRUDService {
-    private int count;
 
     @Autowired
     AccountRepository accountRepository;
 
-    @RequestMapping(value = "/account/create/{accountNumber}/{pin}/{openingBal}/{overDraft}/{availableBal}", method = RequestMethod.GET)
-    public String createAccount(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long openingBal, @PathVariable Long overDraft, @PathVariable Long availableBal) {
+    @RequestMapping(value = "/account/create/{accountNumber}/{pin}/{openingBal}/{overDraft}", method = RequestMethod.GET)
+    public String createAccount(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long openingBal, @PathVariable Long overDraft) {
 
-        Account account = new Account(accountNumber,pin,openingBal,overDraft,availableBal);
+        //Initially opening balance will be equal to available balance
+        Account account = new Account(accountNumber,pin,openingBal,overDraft,openingBal);
         account = accountRepository.save(account);
         log.info("Account :: "+ account +" has been created successfully.");
         return "Account:: "+accountNumber +" has been created successfully.";
@@ -41,32 +41,6 @@ public class AccountCRUDService {
             return "Account:: " + accountNumber + " has been deleted successfully.";
         }
         else {
-            throw new AccountException("This Account:: "+accountNumber+" does not exist.");
-        }
-    }
-
-    @RequestMapping(value = "/account/getBal/{accountNumber}/{pin}")
-     public String getAccountBalance(@PathVariable Long accountNumber,@PathVariable int pin) throws AccountException {
-        Optional<Account> acctBal = accountRepository.findById(accountNumber);
-        if(acctBal.isPresent()) {
-            Account account = acctBal.get();
-            count++;
-            if (account.getPin() != pin){
-                if(count < 3) {
-                    log.info("You have entered invalid pin." + (3 - count) + " more attempts are remaining for the day");
-                    return "You have entered wrong pin." + (3 - count) + " more attempts are remaining for the day";
-            } else
-                {
-
-                throw new AccountException("You have entered invalid PIN three time. Your account has been blocked for the day!!!");
-            }
-        }
-
-            log.info("Your "+ accountNumber +" available balance is "+account.getAvailableBal());
-            return "Your "+ accountNumber +" available balance is "+account.getAvailableBal();
-        }
-        else
-        {
             throw new AccountException("This Account:: "+accountNumber+" does not exist.");
         }
     }
