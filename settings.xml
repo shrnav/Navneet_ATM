@@ -48,12 +48,12 @@ under the License.
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 <localRepository>C:\Users\na010sh\.m2\repository_spring</localRepository>
 <activeProfiles>
-    <activeProfile>docker</activeProfile>
+    <!--activeProfile>docker</activeProfile-->
     
                 <!--activeProfile>web-development</activeProfile-->
                 <!--activeProfile>client-development</activeProfile-->
                 <!--activeProfile>docker</activeProfile-->
-  </activeProfiles>
+  <!--/activeProfiles-->
   <!-- localRepository
    | The path to the local repository maven will use to store artifacts.
    |
