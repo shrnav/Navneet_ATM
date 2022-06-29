@@ -35,6 +35,13 @@ Git for version control.
 Maven as build tool.
 Jib client to create docker image.
 
+Added Sonar support to check code coverage.
+After starting Sonar cube server.
+Execute below command 
+mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=generated_token
+browse localhost:9000. You will see navneet-atm project listed.
+
+
 Note : Please use attached settings.xml for build purpose. As I a using profile "docker" to create the docker image using jib client.If you want to create the docker image then uncomment the active profile section.
 
 Note : If you are seeing Lombok related issue after importing the project on intellej. Make sure you have followed steps.
