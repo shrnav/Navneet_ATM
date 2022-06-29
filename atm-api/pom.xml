@@ -75,5 +75,50 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.1.2</version>
+                        <configuration>
+                            <to>
+                                <!-- In order to create the image specific to docker hub -->
+                                <image>navneet204/my-atm</image>
+                            </to>
+
+                            <container>
+                                <jvmFlags>
+                                    <jvmFlag>-Xms128m</jvmFlag>
+                                    <jvmFlag>-Xmx128m</jvmFlag>
+                                </jvmFlags>
+                                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                                <!--<filesModificationTime>${maven.timestamp}</filesModificationTime>-->
+                                <ports>
+                                    <port>8080</port>
+                                    <port>8080</port>
+                                </ports>
+                            </container>
+                            <allowInsecureRegistries>true</allowInsecureRegistries>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <!-- To execute mvn jib:dockerBuild command -->
+                                <id>mvn jib</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>dockerBuild</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

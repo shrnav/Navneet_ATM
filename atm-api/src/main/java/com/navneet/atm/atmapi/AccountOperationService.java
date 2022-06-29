@@ -54,8 +54,7 @@ public class AccountOperationService {
 
     @RequestMapping(value = "/account/getWithdraw/{accountNumber}/{pin}/{amount}")
     public String getWithdrawal(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long amount,AccountRepository accountRepositoryTest) throws AccountException, ATMException {
-        System.out.println("amount%5=="+amount%5);
-        System.out.println("====>>>>"+accountNumber+"==="+accountRepository);
+
         if(amount%5!=0L)
             throw new ATMException("Please enter the amount in multiple of 5");
         Optional<Account> acct;
