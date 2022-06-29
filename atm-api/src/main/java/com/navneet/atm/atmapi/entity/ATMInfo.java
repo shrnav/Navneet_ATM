@@ -12,7 +12,8 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ATMInfo {
-    private @Id  Long initialAmount;
+    private @Id
+    Long initialAmount;
     private int noteOfFifties;
     private int noteOfTwenties;
     private int noteOfTens;
