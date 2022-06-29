@@ -32,7 +32,10 @@ Docker for containerization.
 Intellej
 Test coverage via Intellej
 Git for version control.
+Maven as build tool.
+Jib client to create docker image.
 
+Note : Please use attached settings.xml for build purpose. As I a using profile "docker" to create the docker image using jib client.
 
 Note : If you are seeing Lombok related issue after importing the project on intellej. Make sure you have followed steps.
 
