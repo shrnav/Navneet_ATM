@@ -19,4 +19,8 @@ public class ATMInfo {
     private int noteOfTens;
     private int noteOfFives;
     private Long remainingAmount;
+
+//    public int[] getNotes() {
+//        return new int[]{ 50,20,10,5 };
+//    }
 }
