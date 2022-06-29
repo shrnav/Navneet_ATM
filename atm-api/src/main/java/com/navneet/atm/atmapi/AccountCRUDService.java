@@ -4,6 +4,7 @@ import com.navneet.atm.atmapi.entity.Account;
 import com.navneet.atm.atmapi.exception.ATMException;
 import com.navneet.atm.atmapi.exception.AccountException;
 import com.navneet.atm.atmapi.repository.AccountRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
+@Slf4j
 public class AccountCRUDService {
-
-    Logger logger = LoggerFactory.getLogger(AccountCRUDService.class);
     private int count;
 
     @Autowired
@@ -28,7 +28,7 @@ public class AccountCRUDService {
 
         Account account = new Account(accountNumber,pin,openingBal,overDraft,availableBal);
         account = accountRepository.save(account);
-        logger.info("Account :: "+ account +" has been created successfully.");
+        log.info("Account :: "+ account +" has been created successfully.");
         return "Account:: "+accountNumber +" has been created successfully.";
     }
 
@@ -37,7 +37,7 @@ public class AccountCRUDService {
         Optional<Account> byId = accountRepository.findById(accountNumber);
         if(byId.isPresent()) {
             accountRepository.deleteById(accountNumber);
-            logger.info("Account :: " + accountNumber + " has been deleted successfully.");
+            log.info("Account :: " + accountNumber + " has been deleted successfully.");
             return "Account:: " + accountNumber + " has been deleted successfully.";
         }
         else {
@@ -50,13 +50,11 @@ public class AccountCRUDService {
         Optional<Account> acctBal = accountRepository.findById(accountNumber);
         if(acctBal.isPresent()) {
             Account account = acctBal.get();
-            System.out.println(account);
-            //TODO Add the pin check
             count++;
             if (account.getPin() != pin){
-                if(count < 4) {
-                    logger.info("You have entered wrong pin." + (4 - count) + " more attempts are remaining for the day");
-                    return "You have entered wrong pin." + (4 - count) + " more attempts are remaining for the day";
+                if(count < 3) {
+                    log.info("You have entered invalid pin." + (3 - count) + " more attempts are remaining for the day");
+                    return "You have entered wrong pin." + (3 - count) + " more attempts are remaining for the day";
             } else
                 {
 
@@ -64,7 +62,7 @@ public class AccountCRUDService {
             }
         }
 
-            logger.info("Your "+ accountNumber +" available balance is "+account.getAvailableBal());
+            log.info("Your "+ accountNumber +" available balance is "+account.getAvailableBal());
             return "Your "+ accountNumber +" available balance is "+account.getAvailableBal();
         }
         else
