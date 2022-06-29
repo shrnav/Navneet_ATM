@@ -25,7 +25,9 @@ public class AccountOperationService {
 
     //Service to get the balance
     @RequestMapping(value = "/account/getBal/{accountNumber}/{pin}")
-    public String getAccountBalance(@PathVariable Long accountNumber, @PathVariable int pin) throws AccountException {
+    public String getAccountBalance(@PathVariable Long accountNumber, @PathVariable int pin, AccountRepository accountRepositoryTest) throws AccountException {
+        if(null == accountRepository)
+            accountRepository = accountRepositoryTest;
         Optional<Account> acctBal = accountRepository.findById(accountNumber);
 
         if (acctBal.isPresent()) {
@@ -51,11 +53,16 @@ public class AccountOperationService {
     }
 
     @RequestMapping(value = "/account/getWithdraw/{accountNumber}/{pin}/{amount}")
-    public String getWithdrawal(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long amount) throws AccountException, ATMException {
+    public String getWithdrawal(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long amount,AccountRepository accountRepositoryTest) throws AccountException, ATMException {
         System.out.println("amount%5=="+amount%5);
+        System.out.println("====>>>>"+accountNumber+"==="+accountRepository);
         if(amount%5!=0L)
             throw new ATMException("Please enter the amount in multiple of 5");
-        Optional<Account> acct = accountRepository.findById(accountNumber);
+        Optional<Account> acct;
+        if(null==accountRepository) {
+             accountRepository = accountRepositoryTest;
+        }
+        acct = accountRepository.findById(accountNumber);
         withDrawCount++;
         if (acct.isPresent()) {
             Account account = acct.get();
