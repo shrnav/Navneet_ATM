@@ -4,9 +4,8 @@ import com.navneet.atm.atmapi.entity.ATMInfo;
 import com.navneet.atm.atmapi.repository.ATMInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,7 +16,7 @@ public class ATMInfoCRUDService {
     @Autowired
     ATMInfoRepository atmInfoRepository;
 
-    @RequestMapping(value = "/atm/create/{initAmt}/{fifties}/{twenties}/{tens}/{fives}/{remainAmt}", method = RequestMethod.GET)
+    @GetMapping(value = "/atm/create/{initAmt}/{fifties}/{twenties}/{tens}/{fives}/{remainAmt}")
     public String insertATM(@PathVariable Long initAmt, @PathVariable int fifties, @PathVariable int twenties, @PathVariable int tens, @PathVariable int fives, @PathVariable Long remainAmt) {
         ATMInfo atmInfo = new ATMInfo(initAmt, fifties, twenties, tens, fives, remainAmt);
         atmInfoRepository.save(atmInfo);
@@ -25,7 +24,7 @@ public class ATMInfoCRUDService {
         return "ATM has been uploaded with " + initAmt + " amount.";
     }
 
-    @RequestMapping(value = "/atm/get")
+    @GetMapping(value = "/atm/get")
     public ATMInfo getATMInfo() {
         Iterable<ATMInfo> atmInfos = atmInfoRepository.findAll();
         for (ATMInfo info : atmInfos) {
@@ -33,6 +32,4 @@ public class ATMInfoCRUDService {
         }
         return null;
     }
-    //TODO Needs to add other CRUD operation.
-
 }
