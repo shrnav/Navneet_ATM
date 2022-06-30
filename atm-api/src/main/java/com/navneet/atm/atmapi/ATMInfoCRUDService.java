@@ -17,9 +17,11 @@ public class ATMInfoCRUDService {
     ATMInfoRepository atmInfoRepository;
 
     @GetMapping(value = "/atm/create/{initAmt}/{fifties}/{twenties}/{tens}/{fives}/{remainAmt}")
-    public String insertATM(@PathVariable Long initAmt, @PathVariable int fifties, @PathVariable int twenties, @PathVariable int tens, @PathVariable int fives, @PathVariable Long remainAmt) {
+    public String insertATM(@PathVariable Long initAmt, @PathVariable int fifties, @PathVariable int twenties, @PathVariable int tens, @PathVariable int fives, @PathVariable Long remainAmt, ATMInfoRepository atmInfoRepositoryTest) {
         ATMInfo atmInfo = new ATMInfo(initAmt, fifties, twenties, tens, fives, remainAmt);
-        atmInfoRepository.save(atmInfo);
+        if(this.atmInfoRepository == null)
+            this.atmInfoRepository = atmInfoRepositoryTest;
+        this.atmInfoRepository.save(atmInfo);
         log.info("ATM has been uploaded with " + initAmt + " amount.");
         return "ATM has been uploaded with " + initAmt + " amount.";
     }
