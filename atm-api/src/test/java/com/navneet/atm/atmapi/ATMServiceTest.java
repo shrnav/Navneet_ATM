@@ -19,6 +19,7 @@ public class ATMServiceTest {
 
     @Autowired
     ATMInfoRepository atmInfoRepository;
+
     @Test
     @Order(1)
     public void testInsertATM() {
