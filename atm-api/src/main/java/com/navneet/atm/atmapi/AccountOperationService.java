@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.navneet.atm.atmapi.util.CommonConstants.*;
+
 @Slf4j
 @RestController
 public class AccountOperationService {
@@ -36,19 +38,19 @@ public class AccountOperationService {
             if (account.getPin() != pin) {
                 if (count <= 3) {
 
-                    log.info("You have entered invalid pin." + (3 - count) + " more attempts are remaining for the day");
-                    return "You have entered wrong pin." + (3 - count) + " more attempts are remaining for the day";
+                    log.info(RETRY_PIN + (THREE-count));
+                    return RETRY_PIN + (THREE-count);
                 } else {
 
-                    throw new AccountException("You have entered invalid PIN three time. Your account has been blocked for the day!!!");
+                    throw new AccountException(RETRY_PIN_EXCEPTION);
                 }
             }
             count = 0; //Needs to reset upon successful event.
 
-            log.info("Your " + accountNumber + " available balance is " + account.getAvailableBal());
-            return "Your " + accountNumber + " available balance is " + account.getAvailableBal();
+            log.info(AVAILABLE_BALANCE + account.getAvailableBal());
+            return AVAILABLE_BALANCE + account.getAvailableBal();
         } else {
-            throw new AccountException("This Account:: " + accountNumber + " does not exist.");
+            throw new AccountException(ACCOUNT_DOESNOT_EXIST+accountNumber);
         }
     }
 
@@ -56,7 +58,7 @@ public class AccountOperationService {
     public String getWithdrawal(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long amount, AccountRepository accountRepositoryTest) throws AccountException, ATMException {
 
         if (amount % 5 != 0L)
-            throw new ATMException("Please enter the amount in multiple of 5");
+            throw new ATMException(MULTIPLE_OF_FIVE);
         Optional<Account> acct;
         if (null == accountRepository) {
             accountRepository = accountRepositoryTest;
@@ -68,10 +70,10 @@ public class AccountOperationService {
 
             if (account.getPin() != pin) {
                 if (withDrawCount <= 3) {
-                    log.info("You have entered invalid pin." + (3 - withDrawCount) + " more attempts are remaining for the day");
-                    return "You have entered wrong pin." + (3 - withDrawCount) + " more attempts are remaining for the day";
+                    log.info(RETRY_PIN+(3 - withDrawCount));
+                    return RETRY_PIN+(3 - withDrawCount);
                 } else {
-                    throw new AccountException("You have entered invalid PIN three time. Your account has been blocked for the day!!!");
+                    throw new AccountException(RETRY_PIN_EXCEPTION);
                 }
 
             }
@@ -87,23 +89,23 @@ public class AccountOperationService {
                 return "Your " + accountNumber + " available balance is " + account.getAvailableBal() + "Currency===>>" + getCurrency(amount);
             } else {
                 overDraftAmount = account.getOverDraft();
-                Long tempAmount = overDraftAmount;
+
                 if (overDraftAmount >= 0L) {
                     overDraftAmount = availableBalance - overDraftAmount;
                     account.setOverDraft(overDraftAmount);
                     accountRepository.save(account);
-                    return "AccountNumber " + accountNumber + " has no amount to disburse. Deducting the amount from overdraft. Total balance is " + account.getAvailableBal();
+                    return NO_MAIN_BALANCE + account.getAvailableBal();
                 } else {
-                    throw new AccountException("No amount available to disburse for the account number:: " + account.getAcctNumber());
+                    throw new AccountException(NO_BALANCE + account.getAcctNumber());
                 }
             }
         } else {
-            throw new AccountException("This Account:: " + accountNumber + " does not exist.");
+            throw new AccountException(ACCOUNT_DOESNOT_EXIST+accountNumber);
         }
 
     }
 
-    public Map<Integer, Integer> getCurrency(Long amount) throws ATMException {
+    public Map<Integer, Integer> getCurrency(Long amount) {
         int[] notes = new int[]{50, 20, 10, 5};
         int[] noteCounter = new int[4];
         int amt = amount.intValue();
@@ -118,8 +120,7 @@ public class AccountOperationService {
 
         for (int i = 0; i < 4; i++) {
             if (noteCounter[i] != 0) {
-                System.out.println(notes[i] + " : "
-                        + noteCounter[i]);
+
                 map.put(notes[i], noteCounter[i]);
 
             }

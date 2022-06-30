@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.navneet.atm.atmapi.util.CommonConstants.ATM_INITIAL_AMOUNT;
+
 @RestController
 @Slf4j
 public class ATMInfoCRUDService {
@@ -22,8 +24,8 @@ public class ATMInfoCRUDService {
         if(this.atmInfoRepository == null)
             this.atmInfoRepository = atmInfoRepositoryTest;
         this.atmInfoRepository.save(atmInfo);
-        log.info("ATM has been uploaded with " + initAmt + " amount.");
-        return "ATM has been uploaded with " + initAmt + " amount.";
+        log.info(ATM_INITIAL_AMOUNT + initAmt);
+        return ATM_INITIAL_AMOUNT+ initAmt;
     }
 
     @GetMapping(value = "/atm/get")

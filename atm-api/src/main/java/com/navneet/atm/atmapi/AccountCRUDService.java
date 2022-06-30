@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+import static com.navneet.atm.atmapi.util.CommonConstants.*;
+
 @RestController
 @Slf4j
 public class AccountCRUDService {
@@ -27,8 +29,8 @@ public class AccountCRUDService {
         }
         Account account = new Account(accountNumber, pin, openingBal, overDraft, openingBal);
         account = accountRepository.save(account);
-        log.info("Account :: " + account + " has been created successfully.");
-        return "Account:: " + accountNumber + " has been created successfully.";
+        log.info(ACCOUNT_CREATED+accountNumber);
+        return ACCOUNT_CREATED+accountNumber;
     }
 
     @GetMapping(value = "/account/get/{accountNumber}")
@@ -53,10 +55,10 @@ public class AccountCRUDService {
         Optional<Account> byId = this.accountRepository.findById(accountNumber);
         if (byId.isPresent()) {
             this.accountRepository.deleteById(accountNumber);
-            log.info("Account :: " + accountNumber + " has been deleted successfully.");
-            return "Account:: " + accountNumber + " has been deleted successfully.";
+            log.info(ACCOUNT_DELETED+accountNumber);
+            return ACCOUNT_DELETED+accountNumber;
         } else {
-            throw new AccountException("This Account:: " + accountNumber + " does not exist.");
+            throw new AccountException(ACCOUNT_DOESNOT_EXIST+accountNumber);
         }
     }
 }
