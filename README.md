@@ -19,28 +19,70 @@ To get the account balance : http://locahost:8080//account/getBal/{accountNumber
 
 To withdraw the amount from account : http://locahost:8080//account/getWithdraw/{accountNumber}/{pin}/{amount} 
 
+Check the loadbalancer (Get the ATM info):
+
+1) Start two instance of atm-api
+2)Make sure you have executed below url twice (via 8080 and 8081)to insert row into ATMInfo table
+http://localhost:8081/atm/create/1500/30/30/20/10/1500
+http://localhost:8081/atm/create/1500/30/30/20/10/1500
+
+3) Hit the url (via API gateway) http://host.docker.internal:8766/ATM-CLIENT/atm-client/atmino
+
+========================================================================
+
+Ports used:
+
+atm-api : 8080
+atm-client : 8888
+atm-namingserver : 8761
+api-gateway : 8766
+
+=========================================================================
 
 Technologies used :
-
+=========================================
 Core Java,
+
 Spring boot
+
 Lombok
+
 JPA
+
 h2 ( for demo purpose only).
+
 Tomcat as web server.
+
 Docker for containerization.
+
 Intellej
+
 Test coverage via Intellej
+
 Git for version control.
+
 Maven as build tool.
+
 Jib client to create docker image.
 
+Eureka discovery client
+
+Feign Client
+
+Dev tools
+
+API Gateway
+=================================================
+
+SONAR SUPPORT::
+
 Added Sonar support to check code coverage.
+
 After starting Sonar cube server.
 Execute below command 
 mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=generated_token
 browse localhost:9000. You will see navneet-atm project listed.
-
+===================================================
 
 Note : Please use attached settings.xml for build purpose. As I a using profile "docker" to create the docker image using jib client.If you want to create the docker image then uncomment the active profile section.
 
