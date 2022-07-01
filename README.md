@@ -26,7 +26,7 @@ Check the loadbalancer (Get the ATM info):
 http://localhost:8081/atm/create/1500/30/30/20/10/1500
 http://localhost:8081/atm/create/1500/30/30/20/10/1500
 
-3) Hit the url (via API gateway) http://host.docker.internal:8766/ATM-CLIENT/atm-client/atmino
+3) Hit the url (via API gateway) http://host.docker.internal:8766/ATM-CLIENT/atm-client/atminfo
 
 ========================================================================
 

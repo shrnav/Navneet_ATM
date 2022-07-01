@@ -11,14 +11,8 @@ public class ATMController {
     @Autowired
     private ATMProxy proxy;
 
-    @GetMapping("/atm-client/atmino")
+    @GetMapping("/atm-client/atminfo")
     public String getATMInfo() {
-        System.out.println("debu........................1");
-        return proxy.getATMInfo();
+                return proxy.getATMInfo();
     }
-//    @GetMapping("/bms-client/{theatreName}/{city}")
-//    public String getResponseForTheatreByCityAndMovie(@PathVariable String theatreName, @PathVariable String city) {
-//        System.out.println("debu1........................1");
-//        return proxy.getBMS(theatreName,city);
-//    }
 }
