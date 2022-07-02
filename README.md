@@ -65,10 +65,19 @@ docker-compose down.
 
 You can find detail information in this https://www.baeldung.com/dockerizing-spring-boot-application article.
 =================================================================================
+Shortest way to execute ATM application.
 
+1) Clone cloudnative ATM project.
+git clone https://github.com/shrnav/Navneet_ATM.git -b cloudnative 
 
+2) Open the Command prompt and cd to the directory where you found the docker-compose.yml file
+3) execute the below command in order to start all microservices in the form of docker image.
+> docker-compose up --build
 
-
+4) Make sure all the services are regsitered to eureka server.
+5)If done, then you are good to hit above urls.
+5) In order to down the services, hit the below command.
+docker down.
 
 ========================================================================
 
