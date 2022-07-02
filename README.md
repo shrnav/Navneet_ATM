@@ -27,6 +27,48 @@ http://localhost:8081/atm/create/1500/30/30/20/10/1500
 http://localhost:8081/atm/create/1500/30/30/20/10/1500
 
 3) Hit the url (via API gateway) http://host.docker.internal:8766/ATM-CLIENT/atm-client/atminfo
+========================================================================
+
+Creation of docker images using Dockerfile.
+
+1) Create the docker image
+
+Ex : docker build --tag=atm-api:latest .
+
+2.1) You can run the image using below command.
+
+Ex: docker run -p8887:8888 atm-api:latest
+
+2.2) You can check running container.
+
+docker conatiner ls
+
+2.3) You can kill the container
+
+docker stop containerid
+
+4)If you want to execute more than one image in one shot then use docker compose.
+
+create docker compose file.and place it on the parent folder where your Docker file exist.
+
+5) Check whether you created correct compose file.
+
+docker-compose config
+
+6) Run the docke compose file.
+
+docker-compose up --build
+
+7) Down the docker compose file.
+
+docker-compose down.
+
+You can find detail information in this https://www.baeldung.com/dockerizing-spring-boot-application article.
+=================================================================================
+
+
+
+
 
 ========================================================================
 
@@ -91,4 +133,6 @@ Note : If you are seeing Lombok related issue after importing the project on int
 **Ticking the "Enable annotation processing" checkbox in Settings->Compiler->Annotation Processors.
 and
 Install the plugin of Lombok for idea and restart for change to take effect.**
+
+
 

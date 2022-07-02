@@ -1,0 +1,41 @@
+version: '2'
+services:
+    atm-namingserver:
+        build:
+            context: atm-namingserver
+            dockerfile: Dockerfile
+        image: atm-namingserver-df:latest
+        ports:
+            - 8761:8761
+        networks:
+            - spring-cloud-network
+    atm-gateway:
+        build:
+            context: atm-gateway
+            dockerfile: Dockerfile
+        image: atm-gateway-df:latest
+        ports:
+            - 8766:8766
+        networks:
+            - spring-cloud-network
+    atm-api:
+        build:
+            context: atm-api
+            dockerfile: Dockerfile
+        image: atm-api-df:latest
+        ports:
+            - 8000-8080:8080
+        networks:
+            - spring-cloud-network
+    atm-client:
+        build:
+            context: atm-client
+            dockerfile: Dockerfile
+        image: atm-client-df:latest
+        ports:
+            - 8888:8888
+        networks:
+            - spring-cloud-network
+networks:
+    spring-cloud-network:
+        driver: bridge
