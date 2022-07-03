@@ -5,7 +5,7 @@ services:
         build:
             context: atm-namingserver
             dockerfile: Dockerfile
-        image: navneet204/atm-namingserver-df:latest
+        image: navneet204/atm-namingserver-banner:latest
         ports:
             - 8761:8761
         networks:
@@ -15,7 +15,7 @@ services:
         build:
             context: atm-gateway
             dockerfile: Dockerfile
-        image: navneet204/atm-gateway-df:latest
+        image: navneet204/atm-gateway-banner:latest
         ports:
             - 8766:8766
         networks:
@@ -25,7 +25,7 @@ services:
         build:
             context: atm-api
             dockerfile: Dockerfile
-        image: navneet204/atm-api-df:latest
+        image: navneet204/atm-api-banner:latest
         ports:
             - 8080:8080
         networks:
@@ -35,7 +35,7 @@ services:
         build:
             context: atm-client
             dockerfile: Dockerfile
-        image: navneet204/atm-client-df:latest
+        image: navneet204/atm-client-banner:latest
         ports:
             - 8888:8888
         networks:

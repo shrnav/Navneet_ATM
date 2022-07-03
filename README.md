@@ -69,6 +69,7 @@ Shortest way to execute ATM application.
 
 1) Clone cloudnative ATM project.
 git clone https://github.com/shrnav/Navneet_ATM.git -b cloudnative 
+2) Build all maven projects. mvn clean install
 
 2) Open the Command prompt and cd to the directory where you found the docker-compose.yml file
 3) execute the below command in order to start all microservices in the form of docker image.
