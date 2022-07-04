@@ -6,11 +6,11 @@ In order to clone the project :
 
 > git clone https://github.com/shrnav/Navneet_ATM.git
 
-======================================
+-------------------------------------------------------
 
 # Publically available Docker iamges::
 
--------------------------------------
+---------------------------------------------------------
 
 navneet204/atm-namingserver-banner:latest
 
@@ -20,11 +20,11 @@ navneet204/atm-api-banner:latest
 
 navneet204/atm-client-banner:latest
 
-======================================
+--------------------------------------------------------
 
 # Ports used:
 
----------------------------------------
+---------------------------------------------------------
 
 atm-api : 8080
 
@@ -34,7 +34,7 @@ atm-namingserver : 8761
 
 api-gateway : 8766
 
-========================================
+-----------------------------------------------------------
 
 # Quickest way to execute the ATM project (Make sure your machine is installed with docker):
 
@@ -76,11 +76,11 @@ ATM information : http://localhost:8766/ATM-CLIENT/atm-client/atminfo
 
 >docker-compose down.
 
-=======================================================================
+-------------------------------------------------------------------------------------
 
 # Technologies used :
 
-----------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 Core Java,
 
@@ -116,7 +116,7 @@ API Gateway
 
 For security : We can use okta.
 
-=================================================
+------------------------------------------------------------------------------------------
 
 # Other ways to execute the project.
 
@@ -128,7 +128,7 @@ For security : We can use okta.
 
 > mvn spring-boot:run
 
-=======================================================================================================
+-------------------------------------------------------------------------------
 
 Check the loadbalancer (Get the ATM info):
 
@@ -139,10 +139,11 @@ http://localhost:8081/atm/create/1500/30/30/20/10/1500
 
 3) Hit the url (via API gateway) http://host.docker.internal:8766/ATM-CLIENT/atm-client/atminfo
 
-========================================================================
+--------------------------------------------------------------------------------
 
 # Other usefull information::
-----------------------------
+
+------------------------------------------------------------
 
 Creation of docker images using Dockerfile.
 
@@ -180,15 +181,21 @@ docker-compose down.
 
 You can find detail information in this https://www.baeldung.com/dockerizing-spring-boot-application article.
 
+------------------------------------------------------------------------------
+
 # SONAR SUPPORT::
 
 Added Sonar support to check code coverage.
 
 After starting Sonar cube server.
+
 Execute below command 
+
 mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=generated_token
+
 browse localhost:9000. You will see navneet-atm project listed.
-===================================================
+
+-------------------------------------------------------------------------------------------
 
 Note : Please use attached settings.xml for build purpose. As I a using profile "docker" to create the docker image using jib client.If you want to create the docker image then uncomment the active profile section.
 
