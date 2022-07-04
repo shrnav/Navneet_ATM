@@ -8,7 +8,7 @@ In order to clone the project :
 
 -------------------------------------------------------
 
-# Publically available Docker iamges::
+# Publicly available Docker images::
 
 ---------------------------------------------------------
 
@@ -43,14 +43,14 @@ api-gateway : 8766
 
 2) Execute the below command to up all the required services.
 
->docker-compose -f docker-compose-only-execute.yml down
+>docker-compose -f docker-compose-only-execute.yml up
 
 if you want to build and run the image (both) then go to the path where docker-compose.yml exist and execute. (Make sure you have taken the latest code and build via mvm clean install).
 
 >docker-compose up
 
 
-3) Hit the the url localhost:8761 to confirm if all three services are up.
+3) Hit the URL http://localhost:8761 to confirm if all three services are up.
 
 4) Execute some queries to create the account or upload money in ATM.
 
@@ -58,11 +58,11 @@ To create Account : http://localhost:8080/account/create/{accountNumber}/{pin}/{
 
 To add money in ATM :: http://localhost:8080/atm/create/{initAmt}/{fifties}/{twenties}/{tens}/{fives}/{remainAmt}
 
-url Via API gateway :
+URL Via API gateway :
 
 ------------------------
 
-Withdrwa account : http://localhost:8766/ATM-CLIENT/account-client/withdrawAccount/{accountNumber}/{pin}/{amountTobeWithdraw}
+Withdraw account : http://localhost:8766/ATM-CLIENT/account-client/withdrawAccount/{accountNumber}/{pin}/{amountTobeWithdraw}
 
 Get the remaining balance : http://localhost:8766/ATM-CLIENT/account-client/getBalance/{accountNumber}/{pin}
 
@@ -130,18 +130,18 @@ For security : We can use okta.
 
 -------------------------------------------------------------------------------
 
-Check the loadbalancer (Get the ATM info):
+Check the load balancer (Get the ATM info):
 
 1) Start two instance of atm-api
 2)Make sure you have executed below url twice (via 8080 and 8081)to insert row into ATMInfo table
 http://localhost:8081/atm/create/1500/30/30/20/10/1500
 http://localhost:8081/atm/create/1500/30/30/20/10/1500
 
-3) Hit the url (via API gateway) http://host.docker.internal:8766/ATM-CLIENT/atm-client/atminfo
+3) Hit the URL (via API gateway) http://host.docker.internal:8766/ATM-CLIENT/atm-client/atminfo
 
 --------------------------------------------------------------------------------
 
-# Other usefull information::
+# Other useful information::
 
 ------------------------------------------------------------
 
@@ -157,7 +157,7 @@ Ex: docker run -p8887:8888 atm-api:latest
 
 2.2) You can check running container.
 
-docker conatiner ls
+docker container ls
 
 2.3) You can kill the container
 
@@ -165,13 +165,13 @@ docker stop containerid
 
 4)If you want to execute more than one image in one shot then use docker compose.
 
-create docker compose file.and place it on the parent folder where your Docker file exist.
+create docker compose file, and place it on the parent folder where your Docker file exist.
 
 5) Check whether you created correct compose file.
 
 docker-compose config
 
-6) Run the docke compose file.
+6) Run the docker compose file.
 
 docker-compose up --build
 
@@ -195,15 +195,4 @@ mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=generated_t
 
 browse localhost:9000. You will see navneet-atm project listed.
 
--------------------------------------------------------------------------------------------
-
-Note : Please use attached settings.xml for build purpose. As I a using profile "docker" to create the docker image using jib client.If you want to create the docker image then uncomment the active profile section.
-
-Note : If you are seeing Lombok related issue after importing the project on intellej. Make sure you have followed steps.
-
-**Ticking the "Enable annotation processing" checkbox in Settings->Compiler->Annotation Processors.
-and
-Install the plugin of Lombok for idea and restart for change to take effect.**
-
-
-
+----------------------------------------------------------
