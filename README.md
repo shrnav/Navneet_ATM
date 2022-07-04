@@ -8,7 +8,7 @@ In order to clone the project :
 
 ======================================
 
-#Publically available Docker iamges::
+# Publically available Docker iamges::
 
 -------------------------------------
 
@@ -22,7 +22,7 @@ navneet204/atm-client-banner:latest
 
 ======================================
 
-#Ports used:
+# Ports used:
 
 ---------------------------------------
 
@@ -36,7 +36,7 @@ api-gateway : 8766
 
 ========================================
 
-#Quickest way to execute the ATM project (Make sure your machine is installed with docker):
+# Quickest way to execute the ATM project (Make sure your machine is installed with docker):
 
 -----------------------------------------------------------------------------------------
 1) Go to the path where docker-compose-only-execute.yml exist.
@@ -78,7 +78,7 @@ ATM information : http://localhost:8766/ATM-CLIENT/atm-client/atminfo
 
 =======================================================================
 
-#Technologies used :
+# Technologies used :
 
 ----------------------------------------------------------------------
 
@@ -118,7 +118,7 @@ For security : We can use okta.
 
 =================================================
 
-#Other ways to execute the project.
+# Other ways to execute the project.
 
 1) Clone the project
 
@@ -141,7 +141,7 @@ http://localhost:8081/atm/create/1500/30/30/20/10/1500
 
 ========================================================================
 
-#Other usefull information::
+# Other usefull information::
 ----------------------------
 
 Creation of docker images using Dockerfile.
@@ -180,7 +180,7 @@ docker-compose down.
 
 You can find detail information in this https://www.baeldung.com/dockerizing-spring-boot-application article.
 
-#SONAR SUPPORT::
+# SONAR SUPPORT::
 
 Added Sonar support to check code coverage.
 
