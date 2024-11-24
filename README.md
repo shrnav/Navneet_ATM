@@ -12,13 +12,13 @@ In order to clone the project :
 
 ---------------------------------------------------------
 
-navneet204/atm-namingserver-banner:latest
+navneet204/atm-namingserver:cloudnative
 
-navneet204/atm-gateway-banner:latest
+navneet204/atm-gateway:cloudnative
 
-navneet204/atm-api-banner:latest
+navneet204/atm-api:cloudnative
 
-navneet204/atm-client-banner:latest
+navneet204/atm-client:cloudnative
 
 --------------------------------------------------------
 
@@ -45,7 +45,7 @@ api-gateway : 8766
 
 >docker-compose -f docker-compose-only-execute.yml up
 
-if you want to build and run the image (both) then go to the path where docker-compose.yml exist and execute. (Make sure you have taken the latest code and build via mvm clean install).
+if you want to build and run the image (both) then go to the path where docker-compose.yml exist and execute. (Make sure you have taken the cloudnative code and build via mvm clean install).
 
 >docker-compose up
 
@@ -149,11 +149,11 @@ Creation of docker images using Dockerfile.
 
 1) Create the docker image
 
-Ex : docker build --tag=atm-api:latest .
+Ex : docker build --tag=atm-api:cloudnative .
 
 2.1) You can run the image using below command.
 
-Ex: docker run -p8887:8888 atm-api:latest
+Ex: docker run -p8887:8888 atm-api:cloudnative
 
 2.2) You can check running container.
 

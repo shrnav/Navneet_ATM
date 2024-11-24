@@ -37,7 +37,7 @@ services:
             dockerfile: Dockerfile
         image: navneet204/atm-client-banner:latest
         ports:
-            - 8888:8888
+            - 8181:8181
         networks:
             - spring-cloud-network
 networks:

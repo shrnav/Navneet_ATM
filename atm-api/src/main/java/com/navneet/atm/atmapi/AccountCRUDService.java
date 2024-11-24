@@ -1,13 +1,15 @@
 package com.navneet.atm.atmapi;
 
+import com.navneet.atm.atmapi.entity.ATMInfo;
 import com.navneet.atm.atmapi.entity.Account;
+import com.navneet.atm.atmapi.exception.ATMException;
 import com.navneet.atm.atmapi.exception.AccountException;
 import com.navneet.atm.atmapi.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -19,6 +21,20 @@ public class AccountCRUDService {
 
     @Autowired
     AccountRepository accountRepository;
+
+
+    @PostMapping(value = "/account/createUserAccount")
+    public ResponseEntity<Account> createUserAccount(@RequestBody Account account) throws ATMException, AccountException {
+
+        Account userAccount = accountRepository.save(account);
+
+        if (userAccount == null) {
+            throw new AccountException();
+        } else {
+            return new ResponseEntity<>(userAccount, HttpStatus.CREATED);
+        }
+    }
+
 
     @GetMapping(value = "/account/create/{accountNumber}/{pin}/{openingBal}/{overDraft}")
     public String createAccount(@PathVariable Long accountNumber, @PathVariable int pin, @PathVariable Long openingBal, @PathVariable Long overDraft, AccountRepository accountRepositoryTest) {

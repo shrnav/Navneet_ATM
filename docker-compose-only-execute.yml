@@ -3,7 +3,7 @@ services:
     atm-namingserver:
         container_name: atm-namingserver
         
-        image: navneet204/atm-namingserver-banner:latest
+        image: navneet204/atm-namingserver:cloudnative
         ports:
             - 8761:8761
         networks:
@@ -11,7 +11,7 @@ services:
     atm-gateway:
         container_name: atm-gateway
        
-        image: navneet204/atm-gateway-banner:latest
+        image: navneet204/atm-gateway:cloudnative
         ports:
             - 8766:8766
         networks:
@@ -19,7 +19,7 @@ services:
     atm-api:
         container_name: atm-api
         
-        image: navneet204/atm-api-banner:latest
+        image: navneet204/atm-api:cloudnative
         ports:
             - 8080:8080
         networks:
@@ -27,9 +27,9 @@ services:
     atm-client:
         container_name: atm-client
         
-        image: navneet204/atm-client-banner:latest
+        image: navneet204/atm-client:cloudnative
         ports:
-            - 8888:8888
+            - 8181:8181
         networks:
             - spring-cloud-network
 networks:

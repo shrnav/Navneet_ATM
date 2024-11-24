@@ -33,7 +33,7 @@ services:
             dockerfile: Dockerfile
         image: atm-client-df:latest
         ports:
-            - 8888:8888
+            - 8181:8181
         networks:
             - spring-cloud-network
 networks:

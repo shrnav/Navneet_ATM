@@ -1,13 +1,17 @@
 package com.navneet.atm.atmapi;
 
 import com.navneet.atm.atmapi.entity.ATMInfo;
+import com.navneet.atm.atmapi.exception.ATMException;
 import com.navneet.atm.atmapi.repository.ATMInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import static com.navneet.atm.atmapi.util.CommonConstants.ATM_INITIAL_AMOUNT;
 
@@ -34,9 +38,29 @@ public class ATMInfoCRUDService {
     @GetMapping(value = "/atm/get")
     public String getATMInfo() {
         Iterable<ATMInfo> atmInfos = atmInfoRepository.findAll();
+        InetAddress IP = null;
+        try {
+            IP = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        System.out.println("IP of my system is := "+IP.getHostAddress());
         for (ATMInfo info : atmInfos) {
-            return info.toString()+" coming from port ::"+(environment.getProperty("local.server.port"));
+            return info.toString()+" coming from port ::"+(environment.getProperty("local.server.port")+" from host address ::"+IP.getHostAddress()+" Host Name"+IP.getHostName());
         }
         return null;
     }
+
+    @PostMapping(value = "/atm/createATMInfo")
+    public ResponseEntity<ATMInfo> createATMInfo(@RequestBody ATMInfo atmInfo) throws ATMException {
+
+        ATMInfo atm = atmInfoRepository.save(atmInfo);
+
+        if (atm == null) {
+            throw new ATMException();
+        } else {
+            return new ResponseEntity<>(atm, HttpStatus.CREATED);
+        }
+    }
+
 }
